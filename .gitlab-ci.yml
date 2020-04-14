@@ -1,0 +1,15 @@
+# See http://doc.gitlab.com/ce/ci/yaml/README.html
+
+validate:
+  script:
+    - validate v1
+    # - pytest -v
+
+# Deploy application to a server
+deploy:
+  stage: deploy
+  only: [pnt_enrl_poc]                          # Only deploy on master branch commit
+  script: 
+    - ssh gramener@52.172.189.200 "cd /home/gramener/data_processing/ndpp/;git checkout -- .;git pull;"
+  variables:
+    setup: npm install
